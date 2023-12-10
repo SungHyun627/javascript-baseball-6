@@ -12,6 +12,5 @@ export const ERROR_MESSAGES = Object.freeze({
 
 export const RESULT_MESSAGES = Object.freeze({
   notExistMatchingNumber: '낫싱',
-  matchingAllnumbers: '3개의 숫자를 모두 맞히셨습니다!',
-  gameOver: '게임 종료',
+  matchingAllnumbers: '3개의 숫자를 모두 맞히셨습니다!, 게임 종료',
 });
