@@ -1,5 +1,5 @@
 import { ERROR_MESSAGES } from '../constants/messages.js';
-import { BASEBALL_NUMBERS_RANGE, BASEBALL_NUMBERS_COUNT } from '../constants/numbers.js';
+import { BASEBALL_NUMBERS_RANGE, BASEBALL_NUMBERS_LENGTH } from '../constants/numbers.js';
 
 class UserNumbers {
   #userNumbers;
@@ -23,7 +23,7 @@ class UserNumbers {
   }
 
   #isThreeDigits() {
-    return this.#userNumbers.length === BASEBALL_NUMBERS_COUNT;
+    return this.#userNumbers.length === BASEBALL_NUMBERS_LENGTH;
   }
   #isAllNumbersInRange() {
     return this.#userNumbers.every(
@@ -34,6 +34,10 @@ class UserNumbers {
 
   #isNotDuplicated() {
     return this.#userNumbers.length === new Set(this.#userNumbers).size;
+  }
+
+  getUserNumbers() {
+    return this.#userNumbers;
   }
 }
 

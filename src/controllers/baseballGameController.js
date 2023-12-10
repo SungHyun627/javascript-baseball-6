@@ -3,8 +3,9 @@ import OutputView from '../views/OutputView.js';
 import { numbersStringToArray } from '../utils/string.js';
 import UserNumbers from '../models/userNumbers.js';
 import { generateNotDuplicatedNumbersInRange } from '../utils/generteRandomNumber.js';
-import { BASEBALL_NUMBERS_COUNT, BASEBALL_NUMBERS_RANGE } from '../constants/numbers.js';
+import { BASEBALL_NUMBERS_LENGTH, BASEBALL_NUMBERS_RANGE } from '../constants/numbers.js';
 import ComputerNumbers from '../models/computerNumbers.js';
+import CalculateStrikeBallCountService from '../services/calculateStrikeBallCountService.js';
 
 class BaseBallGameController {
   #views = {
@@ -17,6 +18,10 @@ class BaseBallGameController {
     computerNumbers: [],
   };
 
+  #services = {
+    calculateStrikeBallCountService: new CalculateStrikeBallCountService(),
+  };
+
   async run() {
     this.#printGameStartMessage();
     this.#playbaseballGame();
@@ -25,6 +30,7 @@ class BaseBallGameController {
   async #playbaseballGame() {
     this.#generateComputerNumbers();
     await this.#readUserNumbers();
+    this.#getStrikeBallCounts();
   }
 
   #printGameStartMessage() {
@@ -35,7 +41,7 @@ class BaseBallGameController {
     const computerNumbers = generateNotDuplicatedNumbersInRange(
       BASEBALL_NUMBERS_RANGE.min,
       BASEBALL_NUMBERS_RANGE.max,
-      BASEBALL_NUMBERS_COUNT
+      BASEBALL_NUMBERS_LENGTH
     );
     this.#numbers.computerNumbers = new ComputerNumbers(computerNumbers);
   }
@@ -43,6 +49,15 @@ class BaseBallGameController {
   async #readUserNumbers() {
     const userNumbers = numbersStringToArray(await this.#views.inputView.readUserNumbers());
     this.#numbers.userNumbers = new UserNumbers(userNumbers);
+  }
+
+  #getStrikeBallCounts() {
+    const userNumbers = this.#numbers.userNumbers.getUserNumbers();
+    const computerNumbers = this.#numbers.computerNumbers.getComputerNumbers();
+    return this.#services.calculateStrikeBallCountService.getStrikeBallCounts(
+      userNumbers,
+      computerNumbers
+    );
   }
 }
 
