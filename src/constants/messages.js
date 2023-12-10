@@ -6,4 +6,5 @@ export const GUIDE_MESSAGES = Object.freeze({
 export const ERROR_MESSAGES = Object.freeze({
   notNumber: '[ERROR] 숫자가 아닙니다.',
   notInRange: '[ERROR] 1과 9사이의 숫자가 아닙니다.',
+  notThreeDigits: '[ERROR] 주어진 숫자의 개수가 3개가 아닙니다.',
 });

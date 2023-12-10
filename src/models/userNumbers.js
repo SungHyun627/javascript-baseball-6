@@ -1,5 +1,5 @@
 import { ERROR_MESSAGES } from '../constants/messages.js';
-import { BASEBALL_NUMBERS } from '../constants/numbers.js';
+import { BASEBALL_NUMBERS_RANGE, BASEBALL_NUMBERS_COUNT } from '../constants/numbers.js';
 
 class UserNumbers {
   #userNumbers;
@@ -12,6 +12,8 @@ class UserNumbers {
   #validateUserNumbers() {
     if (!this.#isNumbers()) throw new Error(ERROR_MESSAGES.notNumber);
     if (!this.#isAllNumbersInRange()) throw new Error(ERROR_MESSAGES.notInRange);
+    if (!this.#isThreeDigits()) throw new Error(ERROR_MESSAGES.notThreeDigits);
+    return true;
   }
 
   #isNumbers() {
@@ -19,9 +21,13 @@ class UserNumbers {
     return this.#userNumbers.every((userNumber) => regex.test(userNumber));
   }
 
+  #isThreeDigits() {
+    return this.#userNumbers.length === BASEBALL_NUMBERS_COUNT;
+  }
   #isAllNumbersInRange() {
     return this.#userNumbers.every(
-      (userNumber) => BASEBALL_NUMBERS.max >= userNumber && BASEBALL_NUMBERS.min <= userNumber
+      (userNumber) =>
+        BASEBALL_NUMBERS_RANGE.max >= userNumber && BASEBALL_NUMBERS_RANGE.min <= userNumber
     );
   }
 }
