@@ -7,6 +7,7 @@ import { BASEBALL_NUMBERS_LENGTH, BASEBALL_NUMBERS_RANGE } from '../constants/nu
 import ComputerNumbers from '../models/computerNumbers.js';
 import CalculateStrikeBallCountService from '../services/calculateStrikeBallCountService.js';
 import GameResultFormattingService from '../services/gameResultFormattingService.js';
+import { Console } from '@woowacourse/mission-utils';
 
 class BaseBallGameController {
   #views = {
@@ -77,8 +78,13 @@ class BaseBallGameController {
       await this.#readUserNumbers();
       this.#printGameResult();
       this.#runNextStep();
+      return;
     }
-    return;
+    let getRestartNumber = await this.#getRestartNumber();
+  }
+
+  async #getRestartNumber() {
+    return await this.#views.inputView.readRestartNumber();
   }
 }
 

@@ -6,6 +6,10 @@ const InputView = {
     const useroNumbers = await Console.readLineAsync(GUIDE_MESSAGES.enterUserNumbers);
     return useroNumbers;
   },
+  readRestartNumber: async () => {
+    const restartNumber = await Console.readLineAsync(GUIDE_MESSAGES.enterRestartNumber);
+    return restartNumber;
+  },
 };
 
 export default InputView;
