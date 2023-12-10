@@ -24,7 +24,7 @@ class BaseBallGameController {
 
   async run() {
     this.#printGameStartMessage();
-    this.#playbaseballGame();
+    await this.#playbaseballGame();
   }
 
   async #playbaseballGame() {

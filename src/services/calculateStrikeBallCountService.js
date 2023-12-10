@@ -3,7 +3,8 @@ import { BASEBALL_NUMBERS_LENGTH } from '../constants/numbers.js';
 class CalculateStrikeBallCountService {
   getStrikeBallCounts(userNumbers, computerNumbers) {
     const strikeCount = this.#getStrikeCount(userNumbers, computerNumbers);
-    return { strikeCount };
+    const ballCount = this.#getBallCount(userNumbers, computerNumbers);
+    return { strikeCount, ballCount };
   }
 
   #getStrikeCount(userNumbers, computerNumbers) {
@@ -12,6 +13,15 @@ class CalculateStrikeBallCountService {
       if (userNumbers[idx] === computerNumbers[idx]) strikeCount += 1;
     }
     return strikeCount;
+  }
+
+  #getBallCount(userNumbers, computerNumbers) {
+    let ballCount = 0;
+    userNumbers.forEach((userNumber, idx) => {
+      if (computerNumbers.includes(userNumber) && userNumbers[idx] !== computerNumbers[idx])
+        ballCount += 1;
+    });
+    return ballCount;
   }
 }
 
