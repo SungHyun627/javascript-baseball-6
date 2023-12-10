@@ -8,6 +8,7 @@ import ComputerNumbers from '../models/computerNumbers.js';
 import CalculateStrikeBallCountService from '../services/calculateStrikeBallCountService.js';
 import GameResultFormattingService from '../services/gameResultFormattingService.js';
 import { Console } from '@woowacourse/mission-utils';
+import RestartNumber from '../models/restartNumber.js';
 
 class BaseBallGameController {
   #views = {
@@ -18,6 +19,7 @@ class BaseBallGameController {
   #numbers = {
     userNumbers: [],
     computerNumbers: [],
+    restartNumber: [],
   };
 
   #services = {
@@ -58,6 +60,8 @@ class BaseBallGameController {
   #getStrikeBallCounts() {
     const userNumbers = this.#numbers.userNumbers.getUserNumbers();
     const computerNumbers = this.#numbers.computerNumbers.getComputerNumbers();
+    Console.print(userNumbers);
+    Console.print(computerNumbers);
     return this.#services.calculateStrikeBallCountService.getStrikeBallCounts(
       userNumbers,
       computerNumbers
@@ -80,11 +84,12 @@ class BaseBallGameController {
       this.#runNextStep();
       return;
     }
-    let getRestartNumber = await this.#getRestartNumber();
+    this.#readRestartNumber();
   }
 
-  async #getRestartNumber() {
-    return await this.#views.inputView.readRestartNumber();
+  async #readRestartNumber() {
+    const restartNumber = await this.#views.inputView.readRestartNumber();
+    this.#numbers.restartNumber = new RestartNumber(restartNumber);
   }
 }
 
