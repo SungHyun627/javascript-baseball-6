@@ -13,6 +13,7 @@ class UserNumbers {
     if (!this.#isNumbers()) throw new Error(ERROR_MESSAGES.notNumber);
     if (!this.#isAllNumbersInRange()) throw new Error(ERROR_MESSAGES.notInRange);
     if (!this.#isThreeDigits()) throw new Error(ERROR_MESSAGES.notThreeDigits);
+    if (!this.#isNotDuplicated()) throw new Error(ERROR_MESSAGES.duplicated);
     return true;
   }
 
@@ -29,6 +30,10 @@ class UserNumbers {
       (userNumber) =>
         BASEBALL_NUMBERS_RANGE.max >= userNumber && BASEBALL_NUMBERS_RANGE.min <= userNumber
     );
+  }
+
+  #isNotDuplicated() {
+    return this.#userNumbers.length === new Set(this.#userNumbers).size;
   }
 }
 
