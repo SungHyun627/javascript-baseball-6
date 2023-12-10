@@ -5,7 +5,6 @@ import UserNumbers from '../models/userNumbers.js';
 import { generateNotDuplicatedNumbersInRange } from '../utils/generteRandomNumber.js';
 import { BASEBALL_NUMBERS_COUNT, BASEBALL_NUMBERS_RANGE } from '../constants/numbers.js';
 import ComputerNumbers from '../models/computerNumbers.js';
-import { Console } from '@woowacourse/mission-utils';
 
 class BaseBallGameController {
   #views = {
@@ -20,6 +19,10 @@ class BaseBallGameController {
 
   async run() {
     this.#printGameStartMessage();
+    this.#playbaseballGame();
+  }
+
+  async #playbaseballGame() {
     this.#generateComputerNumbers();
     await this.#readUserNumbers();
   }
