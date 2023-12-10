@@ -7,7 +7,6 @@ import { BASEBALL_NUMBERS_LENGTH, BASEBALL_NUMBERS_RANGE } from '../constants/nu
 import ComputerNumbers from '../models/computerNumbers.js';
 import CalculateStrikeBallCountService from '../services/calculateStrikeBallCountService.js';
 import GameResultFormattingService from '../services/gameResultFormattingService.js';
-import { Console } from '@woowacourse/mission-utils';
 import RestartNumber from '../models/restartNumber.js';
 
 class BaseBallGameController {
@@ -60,8 +59,6 @@ class BaseBallGameController {
   #getStrikeBallCounts() {
     const userNumbers = this.#numbers.userNumbers.getUserNumbers();
     const computerNumbers = this.#numbers.computerNumbers.getComputerNumbers();
-    Console.print(userNumbers);
-    Console.print(computerNumbers);
     return this.#services.calculateStrikeBallCountService.getStrikeBallCounts(
       userNumbers,
       computerNumbers
@@ -84,12 +81,16 @@ class BaseBallGameController {
       this.#runNextStep();
       return;
     }
-    this.#readRestartNumber();
+    await this.#readRestartNumber();
+    const restartNumber = this.#numbers.restartNumber.getRestartNumber();
+    if (restartNumber === 2) return;
+    this.#playbaseballGame();
+    return;
   }
 
   async #readRestartNumber() {
     const restartNumber = await this.#views.inputView.readRestartNumber();
-    this.#numbers.restartNumber = new RestartNumber(restartNumber);
+    this.#numbers.restartNumber = new RestartNumber(Number(restartNumber));
   }
 }
 

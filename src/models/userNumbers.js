@@ -6,7 +6,7 @@ class UserNumbers {
 
   constructor(userNumbers) {
     this.#userNumbers = userNumbers;
-    this.#validateUserNumbers();
+    this.#validateUserNumbers(userNumbers);
   }
 
   #validateUserNumbers() {
